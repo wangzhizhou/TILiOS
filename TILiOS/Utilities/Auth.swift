@@ -27,96 +27,82 @@
 /// THE SOFTWARE.
 
 import Foundation
+import UIKit
 
-enum GetResourceRequest<ResourceType> {
-  case success([ResourceType])
-  case failure
-}
-enum SaveResult<ResourceType> {
-  case success(ResourceType)
+enum AuthResult {
+  case success
   case failure
 }
 
-class ResourceRequest<ResourceType> : NSObject, URLSessionDelegate where ResourceType: Codable {
+class Auth: NSObject, URLSessionDelegate {
+  static let defaultsKey = "TIL-API-KEY"
+  let defaults = UserDefaults.standard
   
-  let baseURL = "https://til.jokerhub.cn/api/"
-  let resourceURL: URL
-  init(resourcePath: String) {
-    guard let resourceURL = URL(string: baseURL) else {
+  var token: String? {
+    get {
+      return defaults.string(forKey: Auth.defaultsKey)
+    }
+    set {
+      defaults.set(newValue, forKey: Auth.defaultsKey)
+    }
+  }
+  
+  func logout() {
+    self.token = nil
+    DispatchQueue.main.async {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      let rootController = UIStoryboard(name: "Login", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginNavigation")
+      appDelegate.window?.rootViewController = rootController
+    }
+  }
+  
+  func login(
+    username: String,
+    password: String,
+    completion: @escaping (AuthResult) -> Void) {
+    let path = "https://til.jokerhub.cn/api/users/login"
+    guard let url = URL(string: path) else {
+      fatalError()
+    }
+    guard let loginString = "\(username):\(password)".data(using: .utf8)?.base64EncodedString() else {
       fatalError()
     }
     
-    self.resourceURL = resourceURL.appendingPathComponent(resourcePath)
-  }
-  
-  func getAll(completion: @escaping (GetResourceRequest<ResourceType>) -> Void) {
-    let dataTask = session().dataTask(with: resourceURL) { data, _, _ in
-      guard let jsonData = data else {
-        completion(.failure)
-        return
+    var loginRequest = URLRequest(url: url)
+    loginRequest.addValue("Basic \(loginString)", forHTTPHeaderField: "Authorization")
+    loginRequest.httpMethod = "POST"
+    
+    let dataTask = self.session().dataTask(with: loginRequest) {
+      (data, response, _) in
+      guard let httpResponse = response as? HTTPURLResponse,
+        httpResponse.statusCode == 200,
+        let jsonData = data else {
+          completion(.failure)
+          return
       }
       
       do {
-        let resources = try JSONDecoder().decode([ResourceType].self, from: jsonData)
-        completion(.success(resources))
+        let token = try JSONDecoder().decode(Token.self, from: jsonData)
+        self.token = token.token
+        completion(.success)
       } catch {
         completion(.failure)
       }
     }
-    
     dataTask.resume()
   }
+  
   func session() -> URLSession {
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
     return session
   }
- 
+  
   //https所有证书都验证通过
   func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
     let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
     completionHandler(.useCredential, credential)
     
   }
-  
-  func save(_ resourceToSave: ResourceType, completion: @escaping (SaveResult<ResourceType>) -> Void) {
-    do {
-      guard let token = Auth().token else {
-        Auth().logout()
-        return
-      }
-      var urlRequest = URLRequest(url: resourceURL)
-      urlRequest.httpMethod = "POST"
-      urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-      urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-      urlRequest.httpBody = try JSONEncoder().encode(resourceToSave)
-      let dataTask = session().dataTask(with: urlRequest) { data, response, _ in
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-          completion(.failure)
-          return
-        }
-        guard httpResponse.statusCode == 200, let jsonData = data else {
-            if httpResponse.statusCode == 401 {
-              Auth().logout()
-            }
-            completion(.failure)
-            return
-        }
-        
-        do {
-          let resource = try JSONDecoder().decode(ResourceType.self, from: jsonData)
-          completion(.success(resource))
-        } catch {
-          completion(.failure)
-        }
-      }
-      dataTask.resume()
-    } catch {
-      completion(.failure)
-    }
-  }
 }
-
-
-
-

@@ -21,11 +21,15 @@
 		23FBBD992066AE8F00DBFA59 /* CreateAcronymTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FBBD982066AE8F00DBFA59 /* CreateAcronymTableViewController.swift */; };
 		23FBBD9B2066AFAE00DBFA59 /* SelectUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FBBD9A2066AFAE00DBFA59 /* SelectUserTableViewController.swift */; };
 		5C2901831F8F6DE700803663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */; };
-		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
 		D2A5F20B1F4A9144005CD714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F20A1F4A9144005CD714 /* Assets.xcassets */; };
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
 		F35539A02184BB2D00B2160E /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355399F2184BB2D00B2160E /* ResourceRequest.swift */; };
 		F35539A22185573300B2160E /* AcronymRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35539A12185573300B2160E /* AcronymRequest.swift */; };
+		F355C66A219FE22C00C8AF98 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355C669219FE22C00C8AF98 /* Auth.swift */; };
+		F355C66C219FE52800C8AF98 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355C66B219FE52800C8AF98 /* Token.swift */; };
+		F355C66E21A18C8F00C8AF98 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F355C66D21A18C8F00C8AF98 /* LoginTableViewController.swift */; };
+		F355C67021A18CC800C8AF98 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F355C66F21A18CC800C8AF98 /* Login.storyboard */; };
+		F355C67221A190C900C8AF98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F355C67121A190C900C8AF98 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,12 +48,16 @@
 		23FBBD9A2066AFAE00DBFA59 /* SelectUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTableViewController.swift; sourceTree = "<group>"; };
 		5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* TILiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TILiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2A5F20F1F4A9144005CD714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F355399F2184BB2D00B2160E /* ResourceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRequest.swift; sourceTree = "<group>"; };
 		F35539A12185573300B2160E /* AcronymRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcronymRequest.swift; sourceTree = "<group>"; };
+		F355C669219FE22C00C8AF98 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		F355C66B219FE52800C8AF98 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		F355C66D21A18C8F00C8AF98 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		F355C66F21A18CC800C8AF98 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		F355C67121A190C900C8AF98 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +77,7 @@
 				23FBBD8820669D1B00DBFA59 /* Acronym.swift */,
 				23FBBD8A20669D3300DBFA59 /* User.swift */,
 				23FBBD8C20669D4F00DBFA59 /* Category.swift */,
+				F355C66B219FE52800C8AF98 /* Token.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -85,6 +94,7 @@
 				23FBBD982066AE8F00DBFA59 /* CreateAcronymTableViewController.swift */,
 				23FBBD9A2066AFAE00DBFA59 /* SelectUserTableViewController.swift */,
 				236A123E207BFBC400931AD3 /* AddToCategoryTableViewController.swift */,
+				F355C66D21A18C8F00C8AF98 /* LoginTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -95,6 +105,7 @@
 				23FBBD9020669DAD00DBFA59 /* ErrorPresenter.swift */,
 				F355399F2184BB2D00B2160E /* ResourceRequest.swift */,
 				F35539A12185573300B2160E /* AcronymRequest.swift */,
+				F355C669219FE22C00C8AF98 /* Auth.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -131,7 +142,8 @@
 		D2A5F2021F4A9144005CD714 /* TILiOS */ = {
 			isa = PBXGroup;
 			children = (
-				D2A5F2071F4A9144005CD714 /* Main.storyboard */,
+				F355C67121A190C900C8AF98 /* Main.storyboard */,
+				F355C66F21A18CC800C8AF98 /* Login.storyboard */,
 				23FBBD8E20669D8A00DBFA59 /* ViewControllers */,
 				23FBBD8720669D1000DBFA59 /* Models */,
 				23FBBD8F20669D9A00DBFA59 /* Utilities */,
@@ -199,9 +211,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F355C67021A18CC800C8AF98 /* Login.storyboard in Resources */,
 				D2A5F20B1F4A9144005CD714 /* Assets.xcassets in Resources */,
 				5C2901831F8F6DE700803663 /* LaunchScreen.storyboard in Resources */,
-				D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */,
+				F355C67221A190C900C8AF98 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,12 +227,15 @@
 			files = (
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
 				F35539A22185573300B2160E /* AcronymRequest.swift in Sources */,
+				F355C66E21A18C8F00C8AF98 /* LoginTableViewController.swift in Sources */,
 				F35539A02184BB2D00B2160E /* ResourceRequest.swift in Sources */,
 				23FBBD952066A67B00DBFA59 /* CreateUserTableViewController.swift in Sources */,
 				23FBBD9120669DAD00DBFA59 /* ErrorPresenter.swift in Sources */,
 				23FBBD8920669D1B00DBFA59 /* Acronym.swift in Sources */,
 				23FBBD932066A67000DBFA59 /* CreateCategoryTableViewController.swift in Sources */,
+				F355C66A219FE22C00C8AF98 /* Auth.swift in Sources */,
 				23FBBD992066AE8F00DBFA59 /* CreateAcronymTableViewController.swift in Sources */,
+				F355C66C219FE52800C8AF98 /* Token.swift in Sources */,
 				236A123F207BFBC400931AD3 /* AddToCategoryTableViewController.swift in Sources */,
 				23FBBD8B20669D3300DBFA59 /* User.swift in Sources */,
 				233638932062B99A001588B0 /* AcronymsTableViewController.swift in Sources */,
@@ -232,17 +248,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		D2A5F2071F4A9144005CD714 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D2A5F2081F4A9144005CD714 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D2A5F2101F4A9144005CD714 /* Debug */ = {
@@ -361,7 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2N62934Y28;
 				INFOPLIST_FILE = "$(SRCROOT)/TILiOS/Project Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.TILiOS;
@@ -377,7 +382,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2N62934Y28;
 				INFOPLIST_FILE = "$(SRCROOT)/TILiOS/Project Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.TILiOS;

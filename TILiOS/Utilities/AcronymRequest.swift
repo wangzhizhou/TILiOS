@@ -87,14 +87,25 @@ class AcronymRequest: NSObject,URLSessionDelegate {
   
   func update(with updateData: Acronym, completion: @escaping (SaveResult<Acronym>) -> Void) {
     do {
+      guard let token = Auth().token else {
+        Auth().logout()
+        return
+      }
       var urlRequest = URLRequest(url: resource)
       urlRequest.httpMethod = "PUT"
       urlRequest.httpBody = try JSONEncoder().encode(updateData)
       urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+      urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
       let dataTask = session().dataTask(with: urlRequest) { data, response, _ in
-        guard let httpResponse = response as? HTTPURLResponse,
-        httpResponse.statusCode == 200,
-          let jsonData = data else {
+        guard let httpResponse = response as? HTTPURLResponse else {
+          completion(.failure)
+          return
+        }
+        
+        guard httpResponse.statusCode == 200, let jsonData = data else {
+          if httpResponse.statusCode == 401 {
+            Auth().logout()
+          }
             completion(.failure)
             return
         }
@@ -112,8 +123,13 @@ class AcronymRequest: NSObject,URLSessionDelegate {
     }
   }
   func delete() {
+    guard let token = Auth().token else {
+      Auth().logout()
+      return
+    }
     var urlRequest = URLRequest(url: resource)
     urlRequest.httpMethod = "DELETE"
+    urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     let dataTask = session().dataTask(with: urlRequest)
     dataTask.resume()
   }
@@ -125,14 +141,25 @@ class AcronymRequest: NSObject,URLSessionDelegate {
       return
     }
     
+    
+    guard let token = Auth().token else {
+      Auth().logout()
+      return
+    }
     let url = resource.appendingPathComponent("categories").appendingPathComponent("\(categoryID)")
     
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = "POST"
-    
+    urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     let dataTask = session().dataTask(with: urlRequest) { _, response, _ in
-      guard let httpResponse = response as? HTTPURLResponse,
-        httpResponse.statusCode == 201 else {
+      guard let httpResponse = response as? HTTPURLResponse else {
+        completion(.failure)
+        return
+      }
+        guard httpResponse.statusCode == 201 else {
+          if httpResponse.statusCode == 401 {
+            Auth().logout()
+          }
           completion(.failure)
           return
       }
